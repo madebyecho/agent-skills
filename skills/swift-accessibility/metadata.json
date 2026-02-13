@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "organization": "Echo Studio (madebyecho)",
+  "date": "February 2026",
+  "abstract": "Comprehensive accessibility automation skill for Swift projects (SwiftUI and UIKit). Contains 8 issue categories across 4 priority levels, with auto-detection patterns, fix logic, and XCTest audit generation. Covers VoiceOver labels, Dynamic Type, WCAG AA compliance, accessibility identifiers, header traits, element grouping, and decorative element handling.",
+  "references": [
+    "https://developer.apple.com/accessibility/",
+    "https://developer.apple.com/documentation/swiftui/accessibility",
+    "https://developer.apple.com/documentation/uikit/accessibility",
+    "https://www.w3.org/WAI/WCAG21/quickref/?currentsidebar=%23col_overview&levels=aaa",
+    "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+  ]
+}
