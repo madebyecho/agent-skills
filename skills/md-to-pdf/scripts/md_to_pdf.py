@@ -43,14 +43,23 @@ DEFAULT_STATUS_COLORS = {
 }
 
 
+PINNED_DEPS = {
+    "markdown2": "markdown2==2.5.3",
+    "xhtml2pdf": "xhtml2pdf==0.2.16",
+}
+
+
 def ensure_dependencies():
     """Ensure at least one rendering engine is available."""
     try:
         import markdown2  # noqa: F401
     except ImportError:
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "--user", "-q", "markdown2"]
+        print(
+            f"Required dependency 'markdown2' is not installed.\n"
+            f"Install it with: pip install {PINNED_DEPS['markdown2']}",
+            file=sys.stderr,
         )
+        sys.exit(1)
 
     try:
         from weasyprint import HTML  # noqa: F401
@@ -64,10 +73,13 @@ def ensure_dependencies():
 
         return "xhtml2pdf"
     except ImportError:
-        subprocess.check_call(
-            [sys.executable, "-m", "pip", "install", "--user", "-q", "xhtml2pdf"]
+        print(
+            f"No PDF engine found. Install one of:\n"
+            f"  pip install weasyprint    (recommended, better rendering)\n"
+            f"  pip install {PINNED_DEPS['xhtml2pdf']}  (pure Python fallback)",
+            file=sys.stderr,
         )
-        return "xhtml2pdf"
+        sys.exit(1)
 
 
 def detect_orientation(md_content: str) -> str:
@@ -288,6 +300,25 @@ def convert_with_xhtml2pdf(html: str, output_path: str):
         print(f"Warning: xhtml2pdf reported {result.err} error(s)", file=sys.stderr)
 
 
+def _is_valid_css_color(value: str) -> bool:
+    """Validate that a string is a safe CSS color value (hex, rgb, or named)."""
+    value = value.strip()
+    # Hex colors: #rgb, #rrggbb, #rrggbbaa
+    if re.match(r"^#[0-9a-fA-F]{3,8}$", value):
+        return True
+    # rgb/rgba functions
+    if re.match(r"^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*(,\s*[\d.]+\s*)?\)$", value):
+        return True
+    # Named colors (basic set)
+    named = {
+        "black", "white", "red", "green", "blue", "yellow", "orange", "purple",
+        "gray", "grey", "pink", "brown", "cyan", "magenta", "transparent",
+    }
+    if value.lower() in named:
+        return True
+    return False
+
+
 def parse_custom_colors(colors_json: str) -> dict:
     """Parse custom colors JSON string into color map format."""
     try:
@@ -296,17 +327,34 @@ def parse_custom_colors(colors_json: str) -> dict:
         print(f"Error parsing --custom-colors JSON: {e}", file=sys.stderr)
         sys.exit(1)
 
+    if not isinstance(raw, dict):
+        print("Error: --custom-colors must be a JSON object", file=sys.stderr)
+        sys.exit(1)
+
     result = {}
     for keyword, color_str in raw.items():
+        if not isinstance(color_str, str):
+            print(f"Error: color value for '{keyword}' must be a string", file=sys.stderr)
+            sys.exit(1)
+
         if ":" in color_str:
             parts = color_str.split(":")
             # Handle #hex:#hex format
             bg = parts[0]
             text = ":".join(parts[1:]) if len(parts) > 2 else parts[1]
-            result[keyword.upper()] = (bg, text)
         else:
             # Single color = background, default dark text
-            result[keyword.upper()] = (color_str, "#1a1a1a")
+            bg = color_str
+            text = "#1a1a1a"
+
+        if not _is_valid_css_color(bg):
+            print(f"Error: invalid background color '{bg}' for keyword '{keyword}'", file=sys.stderr)
+            sys.exit(1)
+        if not _is_valid_css_color(text):
+            print(f"Error: invalid text color '{text}' for keyword '{keyword}'", file=sys.stderr)
+            sys.exit(1)
+
+        result[keyword.upper()] = (bg, text)
 
     return result
 

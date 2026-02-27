@@ -94,9 +94,16 @@ Users can add or override mappings with `--custom-colors`.
 
 ### Engine Fallback
 
-The script tries `weasyprint` first (better CSS support, proper page breaks, modern rendering). If weasyprint is not installed, it falls back to `xhtml2pdf` (pure Python, always installable). If neither is available, it auto-installs `xhtml2pdf` via pip.
+The script tries `weasyprint` first (better CSS support, proper page breaks, modern rendering). If weasyprint is not installed, it falls back to `xhtml2pdf` (pure Python, always installable). If neither is available, the script prints install instructions and exits — it does not auto-install packages.
 
-For best results, install weasyprint: `pip install weasyprint`
+**Before first use, install dependencies explicitly:**
+
+```bash
+pip install markdown2==2.5.3
+pip install weasyprint          # recommended
+# OR
+pip install xhtml2pdf==0.2.16   # pure Python fallback
+```
 
 ### Page Breaks
 
