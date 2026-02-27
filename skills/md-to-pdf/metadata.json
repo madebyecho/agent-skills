@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "organization": "Echo Studio (madebyecho)",
+  "date": "February 2026",
+  "abstract": "Converts markdown files to professionally styled PDFs with auto orientation detection, optional status keyword cell coloring, and engine fallback (weasyprint → xhtml2pdf). Supports custom keyword-color mappings, forced orientation overrides, and page breaks at section boundaries.",
+  "references": [
+    "https://github.com/trentm/python-markdown2",
+    "https://weasyprint.org/",
+    "https://xhtml2pdf.readthedocs.io/"
+  ]
+}
