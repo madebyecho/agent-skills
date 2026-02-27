@@ -1,6 +1,11 @@
 {
   "version": 1,
   "skills": {
+    "md-to-pdf": {
+      "source": "madebyecho/agent-skills",
+      "sourceType": "github",
+      "computedHash": "33b1304f8e3344a0d9e1e2ab306893c80fe9afbb4d344bc6b1a4b943fc105eac"
+    },
     "skill-creator": {
       "source": "anthropics/skills",
       "sourceType": "github",
