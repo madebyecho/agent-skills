@@ -1,17 +1,12 @@
 ---
 name: md-to-pdf
-description: >
-  Converts markdown files into professionally styled PDF documents. Use this
+description: Converts markdown files into professionally styled PDF documents. Use this
   skill whenever the user asks to generate a PDF, export markdown as PDF,
   convert .md to .pdf, or create a printable version of a document. Also
   triggers when the user wants status-colored tables, styled documentation
   export, or says things like "make this a PDF", "I need a PDF version",
   "export this doc". Supports auto orientation, optional keyword-based cell
   coloring, and graceful engine fallback.
-license: MIT
-metadata:
-  author: madebyecho
-  version: "1.0.0"
 ---
 
 # Markdown to PDF

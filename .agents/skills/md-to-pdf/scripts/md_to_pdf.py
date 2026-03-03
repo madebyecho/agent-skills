@@ -40,6 +40,7 @@ DEFAULT_STATUS_COLORS = {
     "WARNING": ("#fff3cd", "#856404"),
     "ERROR": ("#f8d7da", "#721c24"),
     "N/A": ("#e2e3e5", "#495057"),
+    "PLANNED": ("#d6eaf8", "#1b4f72"),
 }
 
 
@@ -100,6 +101,36 @@ def find_status_column_indices(html: str) -> None:
     styles only to those cells.
     """
     pass
+
+
+def apply_column_widths(html: str) -> str:
+    """
+    For tables whose first header is '#', use HTML width attributes.
+    xhtml2pdf (reportlab) respects HTML width attrs better than CSS.
+    """
+    COL_WIDTHS = ["5%", "25%", "30%", "40%"]
+
+    def process_table(match):
+        table_html = match.group(0)
+        header_match = re.search(r"<th[^>]*>(.*?)</th>", table_html, re.DOTALL)
+        if not header_match:
+            return table_html
+        first_header = re.sub(r"<[^>]+>", "", header_match.group(1)).strip()
+        if first_header != "#":
+            return table_html
+
+        all_headers = re.findall(r"<th[^>]*>(.*?)</th>", table_html, re.DOTALL)
+        if len(all_headers) != 4:
+            return table_html
+
+        for i, header_content in enumerate(all_headers):
+            old_th = f"<th>{header_content}</th>"
+            new_th = f'<th width="{COL_WIDTHS[i]}">{header_content}</th>'
+            table_html = table_html.replace(old_th, new_th, 1)
+
+        return table_html
+
+    return re.sub(r"<table>.*?</table>", process_table, html, flags=re.DOTALL)
 
 
 def apply_status_colors(html: str, color_map: dict) -> str:
