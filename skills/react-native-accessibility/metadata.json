@@ -1,0 +1,13 @@
+{
+  "version": "1.0.0",
+  "organization": "Echo Studio (madebyecho)",
+  "date": "February 2026",
+  "abstract": "Comprehensive accessibility automation skill for React Native and Expo projects. Contains 16 rules across 3 priority levels, with auto-detection patterns, fix logic, and Jest test generation. Covers VoiceOver (iOS), TalkBack (Android), WCAG AA compliance, accessibility roles, labels, hints, font scaling, touch targets, and live regions.",
+  "references": [
+    "https://reactnative.dev/docs/accessibility",
+    "https://docs.expo.dev/guides/accessibility/",
+    "https://www.w3.org/WAI/WCAG21/quickref/?currentsidebar=%23col_overview&levels=aaa",
+    "https://developer.apple.com/accessibility/",
+    "https://developer.android.com/guide/topics/ui/accessibility"
+  ]
+}
