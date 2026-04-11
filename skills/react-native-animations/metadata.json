@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "organization": "Echo Studio (madebyecho)",
+  "date": "April 2026",
+  "abstract": "Motion design and animation engineering philosophy for React Native apps. Encodes a decision framework (when to animate, which easing, which duration), the Reanimated mental model, gesture-driven animation patterns with Gesture Handler, Skia canvas animation recipes, performance rules, component patterns, and Reduce Motion accessibility. Opinionated on Reanimated + Gesture Handler + Skia as the 2026 mobile motion stack.",
+  "references": [
+    "https://docs.swmansion.com/react-native-reanimated",
+    "https://docs.swmansion.com/react-native-gesture-handler",
+    "https://shopify.github.io/react-native-skia",
+    "https://docs.swmansion.com/react-native-reanimated/docs/guides/accessibility/",
+    "https://developer.apple.com/design/human-interface-guidelines/motion",
+    "https://m3.material.io/styles/motion/overview",
+    "https://animations.dev"
+  ]
+}
