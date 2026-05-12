@@ -1,0 +1,33 @@
+{
+  "name": "react-native-skia-shaders",
+  "version": "1.0.0",
+  "author": "madebyecho",
+  "license": "MIT",
+  "category": "graphics",
+  "tags": [
+    "sksl",
+    "shaders",
+    "react-native",
+    "react-native-skia",
+    "skia",
+    "expo",
+    "reanimated",
+    "graphics",
+    "visual-effects",
+    "mobile"
+  ],
+  "references": [
+    {
+      "title": "Skia SKSL README",
+      "url": "https://github.com/google/skia/tree/main/src/sksl"
+    },
+    {
+      "title": "react-native-skia docs",
+      "url": "https://shopify.github.io/react-native-skia/"
+    },
+    {
+      "title": "Inspired by minimax-ai shader-dev (GLSL)",
+      "url": "https://skills.sh/minimax-ai/skills/shader-dev"
+    }
+  ]
+}
